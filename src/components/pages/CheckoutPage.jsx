@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import useCart from "@/hooks/useCart"
-import authService from "@/services/api/authService"
+import { useSelector } from "react-redux"
 import LoginStep from "@/components/pages/LoginStep"
 import AddressStep from "@/components/pages/AddressStep"
 import PaymentStep from "@/components/pages/PaymentStep"
@@ -16,14 +16,16 @@ const [currentStep, setCurrentStep] = useState(1) // 1 = Login, 2 = Address, 3 =
   useEffect(() => {
     // Check authentication status on mount
     const checkAuth = async () => {
-      const authenticated = await authService.isAuthenticated()
+const authenticated = user !== null
       setIsAuthenticated(authenticated)
       if (authenticated) {
         setCurrentStep(2)
       }
     }
     checkAuth()
-  }, [])
+  }, [user])
+
+  const { user } = useSelector(state => state.user)
 
   const handleLoginSuccess = () => {
 setIsAuthenticated(true)

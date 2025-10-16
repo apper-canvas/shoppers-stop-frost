@@ -6,7 +6,7 @@ import { router } from "@/router/index"
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+<RouterProvider router={router} />
       <ToastContainer
         position="top-right"
         autoClose={3000}

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import StarRating from "@/components/atoms/StarRating";
 import { toast } from "react-toastify";
 import reviewService from "@/services/api/reviewService";
 import { cn } from "@/utils/cn";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
+import StarRating from "@/components/atoms/StarRating";
 import Badge from "@/components/atoms/Badge";
 
 const ReviewCard = ({ review, onUpdate }) => {
@@ -13,29 +13,39 @@ const ReviewCard = ({ review, onUpdate }) => {
   const [notHelpful, setNotHelpful] = useState(review.notHelpful || 0)
   const [voted, setVoted] = useState(null)
 
-  const handleHelpful = () => {
+const handleHelpful = async () => {
     if (voted) {
       toast.info('You have already voted on this review')
       return
     }
 
-    reviewService.markHelpful(review.Id)
-    setHelpful(helpful + 1)
-    setVoted('helpful')
-    toast.success('Thank you for your feedback!')
-    if (onUpdate) onUpdate()
+    try {
+      await reviewService.markHelpful(review.Id)
+      setHelpful(helpful + 1)
+      setVoted('helpful')
+      toast.success('Thank you for your feedback!')
+      if (onUpdate) onUpdate()
+    } catch (error) {
+      console.error('Error marking review as helpful:', error)
+      toast.error('Failed to submit your vote. Please try again.')
+    }
   }
 
-  const handleNotHelpful = () => {
+const handleNotHelpful = async () => {
     if (voted) {
       toast.info('You have already voted on this review')
       return
     }
 
-    reviewService.markNotHelpful(review.Id)
-    setNotHelpful(notHelpful + 1)
-    setVoted('notHelpful')
-    if (onUpdate) onUpdate()
+    try {
+      await reviewService.markNotHelpful(review.Id)
+      setNotHelpful(notHelpful + 1)
+      setVoted('notHelpful')
+      if (onUpdate) onUpdate()
+    } catch (error) {
+      console.error('Error marking review as not helpful:', error)
+      toast.error('Failed to submit your vote. Please try again.')
+    }
   }
 
   const formattedDate = formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })

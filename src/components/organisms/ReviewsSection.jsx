@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import StarRating from "@/components/atoms/StarRating";
-import ReviewCard from "@/components/molecules/ReviewCard";
-import ReviewForm from "@/components/molecules/ReviewForm";
 import reviewService from "@/services/api/reviewService";
+import { cn } from "@/utils/cn";
 import ApperIcon from "@/components/ApperIcon";
 import Loading from "@/components/ui/Loading";
 import Button from "@/components/atoms/Button";
-import { cn } from "@/utils/cn";
+import StarRating from "@/components/atoms/StarRating";
+import ReviewCard from "@/components/molecules/ReviewCard";
+import ReviewForm from "@/components/molecules/ReviewForm";
 
 const ReviewsSection = ({ productId }) => {
   const [reviews, setReviews] = useState([])
@@ -16,15 +16,15 @@ const ReviewsSection = ({ productId }) => {
   const [filterRating, setFilterRating] = useState('all')
   const [sortBy, setSortBy] = useState('recent')
 
-  useEffect(() => {
+useEffect(() => {
     loadReviews()
   }, [productId])
 
-  const loadReviews = () => {
+  const loadReviews = async () => {
     setLoading(true)
     try {
-      const productReviews = reviewService.getByProductId(productId)
-      const productStats = reviewService.getStatsByProductId(productId)
+      const productReviews = await reviewService.getByProductId(productId)
+      const productStats = await reviewService.getStatsByProductId(productId)
       
       setReviews(productReviews)
       setStats(productStats)

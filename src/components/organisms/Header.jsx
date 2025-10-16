@@ -72,8 +72,15 @@ const [isBannerVisible, setIsBannerVisible] = useState(
               </button>
 
               {/* User Account */}
-<button className="p-2 hover:bg-gray-100 rounded-lg transition-colors group">
-                <ApperIcon name="User" size={20} className="text-primary group-hover:text-accent" />
+<button
+                onClick={() => {
+                  const { logout } = require("@/layouts/Root").useAuth?.() || {};
+                  if (logout) logout();
+                }}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+                title="Logout"
+              >
+                <ApperIcon name="LogOut" size={20} className="text-primary group-hover:text-accent" />
               </button>
 
               {/* Wishlist */}
