@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/layouts/Root";
 import CartPanel from "@/components/organisms/CartPanel";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
@@ -73,8 +74,8 @@ const [isBannerVisible, setIsBannerVisible] = useState(
 
               {/* User Account */}
 <button
-                onClick={() => {
-                  const { logout } = require("@/layouts/Root").useAuth?.() || {};
+onClick={() => {
+                  const { logout } = useAuth();
                   if (logout) logout();
                 }}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
