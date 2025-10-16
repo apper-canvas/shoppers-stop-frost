@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import useCart from "@/hooks/useCart"
-import { useSelector } from "react-redux"
-import LoginStep from "@/components/pages/LoginStep"
-import AddressStep from "@/components/pages/AddressStep"
-import PaymentStep from "@/components/pages/PaymentStep"
-import Loading from "@/components/ui/Loading"
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Loading from "@/components/ui/Loading";
+import AddressStep from "@/components/pages/AddressStep";
+import PaymentStep from "@/components/pages/PaymentStep";
+import Login from "@/components/pages/Login";
+import useCart from "@/hooks/useCart";
 const CheckoutPage = () => {
   const navigate = useNavigate()
   const { cartItems, isLoading } = useCart()
@@ -124,7 +124,7 @@ return (
 {/* Step Content */}
 <div className="py-6">
         {currentStep === 1 && (
-          <LoginStep 
+          <Login 
             onLoginSuccess={handleLoginSuccess}
           />
         )}
