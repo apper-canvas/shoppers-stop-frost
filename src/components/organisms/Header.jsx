@@ -15,6 +15,7 @@ const [isBannerVisible, setIsBannerVisible] = useState(
   const navigate = useNavigate()
   const { getCartItemsCount } = useCart()
   const { getWishlistItemsCount } = useWishlist()
+  const { logout } = useAuth()
 
   const handleBannerClose = () => {
     setIsBannerVisible(false)
@@ -75,7 +76,6 @@ const [isBannerVisible, setIsBannerVisible] = useState(
               {/* User Account */}
 <button
 onClick={() => {
-                  const { logout } = useAuth();
                   if (logout) logout();
                 }}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
