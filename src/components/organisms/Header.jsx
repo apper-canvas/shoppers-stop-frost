@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/layouts/Root";
-import CartPanel from "@/components/organisms/CartPanel";
 import ApperIcon from "@/components/ApperIcon";
+import CartPanel from "@/components/organisms/CartPanel";
 import SearchBar from "@/components/molecules/SearchBar";
-import useCart from "@/hooks/useCart";
 import useWishlist from "@/hooks/useWishlist";
+import useCart from "@/hooks/useCart";
 
 const Header = () => {
 const [isBannerVisible, setIsBannerVisible] = useState(
@@ -15,7 +15,7 @@ const [isBannerVisible, setIsBannerVisible] = useState(
   const navigate = useNavigate()
   const { getCartItemsCount } = useCart()
   const { getWishlistItemsCount } = useWishlist()
-  const { logout } = useAuth()
+  const { user, logout } = useAuth()
 
   const handleBannerClose = () => {
     setIsBannerVisible(false)
@@ -74,15 +74,17 @@ const [isBannerVisible, setIsBannerVisible] = useState(
               </button>
 
               {/* User Account */}
-<button
-onClick={() => {
-                  if (logout) logout();
-                }}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
-                title="Logout"
-              >
-                <ApperIcon name="LogOut" size={20} className="text-primary group-hover:text-accent" />
-              </button>
+{user && (
+                <button
+                  onClick={() => {
+                    if (logout) logout();
+                  }}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+                  title="Logout"
+                >
+                  <ApperIcon name="LogOut" size={20} className="text-primary group-hover:text-accent" />
+                </button>
+              )}
 
               {/* Wishlist */}
               <button
