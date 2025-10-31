@@ -13,10 +13,12 @@ const CheckoutPage = () => {
 const [currentStep, setCurrentStep] = useState(1) // 1 = Login, 2 = Address, 3 = Payment
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+const { user } = useSelector(state => state.user)
+
   useEffect(() => {
     // Check authentication status on mount
     const checkAuth = async () => {
-const authenticated = user !== null
+      const authenticated = user !== null
       setIsAuthenticated(authenticated)
       if (authenticated) {
         setCurrentStep(2)
@@ -24,8 +26,6 @@ const authenticated = user !== null
     }
     checkAuth()
   }, [user])
-
-  const { user } = useSelector(state => state.user)
 
   const handleLoginSuccess = () => {
 setIsAuthenticated(true)
