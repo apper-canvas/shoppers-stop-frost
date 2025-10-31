@@ -51,7 +51,7 @@ const saveCart = (items) => {
     }
   }
 
-  const addToCart = (product, selectedSize, selectedColor, quantity = 1) => {
+const addToCart = (product, selectedSize, selectedColor, quantity = 1) => {
     const existingItemIndex = cartItems.findIndex(
       item => 
         item.productId === product.Id.toString() && 
@@ -67,13 +67,13 @@ const saveCart = (items) => {
     } else {
       const newItem = {
         productId: product.Id.toString(),
-        name: product.name,
-        brand: product.brand,
-        price: product.salePrice || product.price,
+        name: product.name_c,
+        brand: product.brand_c,
+        price: product.saleprice_c || product.price_c,
         size: selectedSize,
         color: selectedColor,
         quantity: quantity,
-        image: product.images[0]
+        image: product.images_c?.[0] || product.images_c
       }
       newCartItems = [...cartItems, newItem]
     }

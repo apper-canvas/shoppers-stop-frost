@@ -23,9 +23,9 @@ const [showQuickView, setShowQuickView] = useState(false)
     setShowQuickView(true)
   }
 
-  const handleAddToCart = (e) => {
+const handleAddToCart = (e) => {
     e.stopPropagation()
-    addToCart(product, product.sizes[0], product.colors[0], 1)
+    addToCart(product, product.sizes_c?.[0] || product.sizes_c, product.colors_c?.[0] || product.colors_c, 1)
   }
 
   const handleWishlistToggle = (e) => {
